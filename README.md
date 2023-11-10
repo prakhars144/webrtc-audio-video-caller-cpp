@@ -7,6 +7,8 @@ WebRTC application in modern C++ to make video calls with multiple peers at once
 ```css
  sudo apt-get install build-essential gdb
  apt install libboost-all-dev
+ cmake -S. -Bbuild
+ cd /build
  make
 ```
 
