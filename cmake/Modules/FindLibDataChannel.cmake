@@ -32,7 +32,7 @@ include(FindPackageHandleStandardArgs)
 find_path(
   LibDataChannel_INCLUDE_DIR
   NAMES rtc/rtc.hpp
-  PATHS ${PROJECT_SOURCE_DIR}/ext/libdatachanne/include)
+  PATHS ${PROJECT_SOURCE_DIR}/ext/libdatachannel/include)
 
 find_package_handle_standard_args(
   LibDataChannel
