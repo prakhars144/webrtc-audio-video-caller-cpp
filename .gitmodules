@@ -1,0 +1,3 @@
+[submodule "ext/libdatachannel"]
+	path = ext/libdatachannel
+	url = https://github.com/paullouisageneau/libdatachannel.git
