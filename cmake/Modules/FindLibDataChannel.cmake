@@ -31,22 +31,30 @@ include(FindPackageHandleStandardArgs)
 
 find_path(
   LibDataChannel_INCLUDE_DIR
-  NAMES rtc/rtc.hpp
+  NAMES rtc/rtp.hpp
   PATHS ${PROJECT_SOURCE_DIR}/ext/libdatachannel/include)
+
+find_library(
+  LibDataChannel_LIBRARY
+  NAMES libdatachannel.so
+  PATHS ${PROJECT_SOURCE_DIR}/ext/libdatachannel/build)
+
+include(SelectLibraryConfigurations)
+select_library_configurations(libdatachannel)
 
 find_package_handle_standard_args(
   LibDataChannel
-  REQUIRED_VARS LibDataChannel_INCLUDE_DIR)
-mark_as_advanced(LibDataChannel_INCLUDE_DIR)
+  REQUIRED_VARS LibDataChannel_LIBRARY LibDataChannel_INCLUDE_DIR)
+mark_as_advanced(LibDataChannel_LIBRARY LibDataChannel_INCLUDE_DIR)
 
 if(LibDataChannel_FOUND)
   if(NOT TARGET LibDataChannel::LibDataChannel)
-     if(IS_ABSOLUTE "${LibDataChannel_LIBRARY}")
-        add_library(LibDataChannel::LibDataChannel UNKNOWN IMPORTED)
-        set_property(TARGET LibDataChannel::LibDataChannel PROPERTY IMPORTED_LOCATION "${LibDataChannel_LIBRARY}")
+    if(IS_ABSOLUTE "${LibDataChannel_LIBRARY}")
+      add_library(LibDataChannel::LibDataChannel UNKNOWN IMPORTED)
+      set_property(TARGET LibDataChannel::LibDataChannel PROPERTY IMPORTED_LOCATION "${LibDataChannel_LIBRARY}")
     else()
-        add_library(LibDataChannel::LibDataChannel INTERFACE IMPORTED)
-        set_property(TARGET LibDataChannel::LibDataChannel PROPERTY IMPORTED_LIBNAME "${LibDataChannel_LIBRARY}")
+      add_library(LibDataChannel::LibDataChannel INTERFACE IMPORTED)
+      set_property(TARGET LibDataChannel::LibDataChannel PROPERTY IMPORTED_LIBNAME "${LibDataChannel_LIBRARY}")
     endif()
     set_target_properties(LibDataChannel::LibDataChannel PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${LibDataChannel_INCLUDE_DIR}")
   endif()
